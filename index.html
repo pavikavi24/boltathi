@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pavi & Athi - A Lightning Love Story</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a2a, #1a1a4a, #2a2a6a);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Lightning effect background */
+        .lightning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            width: 4px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #4a9fff, transparent);
+            transform: rotate(45deg);
+            animation: lightningFlash 8s infinite;
+        }
+
+        .lightning-bolt:nth-child(1) {
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .lightning-bolt:nth-child(2) {
+            left: 50%;
+            animation-delay: 2s;
+        }
+
+        .lightning-bolt:nth-child(3) {
+            left: 80%;
+            animation-delay: 4s;
+        }
+
+        @keyframes lightningFlash {
+            0%, 100% { opacity: 0; }
+            5%, 10% { opacity: 1; }
+            15% { opacity: 0; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #4a9fff, #a64dff, #ff4da6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(74, 159, 255, 0.5);
+            animation: titleGlow 3s infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 10px rgba(74, 159, 255, 0.5); }
+            100% { text-shadow: 0 0 30px rgba(166, 77, 255, 0.8), 0 0 40px rgba(255, 77, 166, 0.6); }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0a0ff;
+            margin-bottom: 20px;
+        }
+
+        .lightning-icon {
+            display: inline-block;
+            font-size: 2rem;
+            margin: 0 10px;
+            animation: boltPulse 2s infinite;
+            color: #4a9fff;
+        }
+
+        @keyframes boltPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .story-section {
+            background: rgba(10, 10, 40, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 0 20px rgba(74, 159, 255, 0.3);
+            border: 1px solid rgba(74, 159, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #4a9fff, #a64dff, #ff4da6);
+        }
+
+        .story-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #4a9fff;
+            display: flex;
+            align-items: center;
+        }
+
+        .story-title::before {
+            content: '⚡';
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .story-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0ff;
+        }
+
+        .highlight {
+            color: #ff4da6;
+            font-weight: bold;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #4a9fff, #a64dff);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background: rgba(20, 20, 60, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 1px solid rgba(74, 159, 255, 0.3);
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: #4a9fff;
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 4px #0a0a2a, 0 0 10px #4a9fff;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #a64dff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-date::before {
+            content: '⚡';
+            margin-right: 5px;
+        }
+
+        .family-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(45deg, rgba(74, 159, 255, 0.2), rgba(166, 77, 255, 0.2));
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 0 30px rgba(166, 77, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .family-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .family-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ff4da6;
+            position: relative;
+        }
+
+        .kavi-mithraa {
+            font-size: 3rem;
+            color: #ffeb3b;
+            text-shadow: 0 0 20px rgba(255, 235, 59, 0.7);
+            margin: 30px 0;
+            position: relative;
+            animation: nameGlow 2s infinite alternate;
+        }
+
+        @keyframes nameGlow {
+            0% { text-shadow: 0 0 10px rgba(255, 235, 59, 0.7); }
+            100% { text-shadow: 0 0 30px rgba(255, 235, 59, 0.9), 0 0 40px rgba(255, 235, 59, 0.6); }
+        }
+
+        .love-quote {
+            font-style: italic;
+            margin-top: 30px;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #a0a0ff;
+            position: relative;
+        }
+
+        .interactive-heart {
+            font-size: 2rem;
+            color: #ff4da6;
+            cursor: pointer;
+            display: inline-block;
+            margin: 20px 0;
+            transition: transform 0.3s;
+        }
+
+        .interactive-heart:hover {
+            transform: scale(1.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #a0a0ff;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(74, 159, 255, 0.3);
+        }
+
+        @media screen and (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-content::after {
+                left: -10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lightning">
+        <div class="lightning-bolt"></div>
+        <div class="lightning-bolt"></div>
+        <div class="lightning-bolt"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="title">Pavi <span class="lightning-icon">⚡</span> Athi</h1>
+            <p class="subtitle">A Lightning Love Story That Electrified Their World</p>
+        </header>
+
+        <div class="story-section">
+            <h2 class="story-title">College Days</h2>
+            <div class="story-content">
+                <p>During their college days, <span class="highlight">Athi</span> was immediately captivated by <span class="highlight">Pavi's</span> beauty and charm. Her presence lit up the campus like a lightning bolt on a dark night.</p>
+                <p>They spent their days roaming around the college, sharing laughter, dreams, and creating memories that would last a lifetime. Their connection was instant and powerful - like electricity flowing between two souls destined to be together.</p>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">College Years</div>
+                    <h3>The Spark</h3>
+                    <p>Athi admired Pavi's beauty and intelligence. Their friendship grew stronger with each passing day as they explored the campus and shared their dreams.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">After College</div>
+                    <h3>The Proposal</h3>
+                    <p>With courage fueled by love, Athi proposed to Pavi. To his delight, she accepted, sealing their fate with a promise of forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">New Beginning</div>
+                    <h3>The Wedding</h3>
+                    <p>Their union was celebrated with joy, marking the beginning of their journey as life partners, bound by love and commitment.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Blessing</div>
+                    <h3>Kavi Mithraa</h3>
+                    <p>Their love manifested in the form of their beautiful daughter, Kavi Mithraa, the living proof of their extraordinary bond.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-section">
+            <h2 class="story-title">Exploring Love and the World</h2>
+            <div class="story-content">
+                <p>Now married and blessed with their daughter <span class="highlight">Kavi Mithraa</span>, Pavi and Athi continue to explore both love and the world together.</p>
+                <p>Their journey is a testament to how college sweethearts can build a life filled with joy, adventure, and unwavering support for one another. Like lightning that illuminates the sky, their love brightens every path they take together.</p>
+            </div>
+        </div>
+
+        <div class="family-section">
+            <h2 class="family-title">Their Love Lives On</h2>
+            <p>Now their electrifying love shows to the world in the name of their daughter</p>
+            <div class="kavi-mithraa">Kavi Mithraa</div>
+            <div class="interactive-heart" onclick="animateHeart(this)">❤️</div>
+            <p class="love-quote">"Love is not just something you feel, it's something you do. It's the way you treat someone, the way you prioritize them, the way you fight for them."</p>
+        </div>
+
+        <footer>
+            <p>Created with ⚡ to celebrate the electrifying love story of Pavi and Athi</p>
+        </footer>
+    </div>
+
+    <script>
+        // Timeline animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            function checkVisibility() {
+                timelineItems.forEach(item => {
+                    const itemTop = item.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (itemTop < windowHeight * 0.9) {
+                        item.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Initial check
+            checkVisibility();
+            
+            // Check on scroll
+            window.addEventListener('scroll', checkVisibility);
+            
+            // Create additional lightning effects
+            createLightningEffects();
+        });
+
+        // Interactive heart animation
+        function animateHeart(element) {
+            element.style.transform = 'scale(1.5)';
+            element.style.color = '#ff4da6';
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 300);
+            
+            // Create heart particles
+            createHeartParticles();
+        }
+
+        // Create heart particles animation
+        function createHeartParticles() {
+            const container = document.querySelector('.family-section');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.position = 'absolute';
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = '50%';
+                heart.style.opacity = '1';
+                heart.style.transform = 'translate(-50%, -50%)';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '10';
+                container.appendChild(heart);
+                
+                // Animate heart
+                animateParticle(heart);
+            }
+        }
+
+        // Animate particles
+        function animateParticle(element) {
+            const startX = parseInt(element.style.left);
+            const startY = 50;
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 50 + Math.random() * 100;
+            const duration = 1000 + Math.random() * 1000;
+            
+            const startTime = Date.now();
+            
+            function update() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                if (progress < 1) {
+                    const x = startX + Math.cos(angle) * distance * progress;
+                    const y = startY - 100 * progress;
+                    const opacity = 1 - progress;
+                    const scale = 1 - progress * 0.5;
+                    
+                    element.style.left = x + '%';
+                    element.style.top = y + '%';
+                    element.style.opacity = opacity;
+                    element.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                    
+                    requestAnimationFrame(update);
+                } else {
+                    element.remove();
+                }
+            }
+            
+            update();
+        }
+
+        // Create additional lightning effects
+        function createLightningEffects() {
+            const lightningContainer = document.querySelector('.lightning');
+            
+            setInterval(() => {
+                const bolt = document.createElement('div');
+                bolt.className = 'lightning-bolt';
+                bolt.style.left = Math.random() * 100 + '%';
+                bolt.style.animationDelay = '0s';
+                bolt.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                
+                lightningContainer.appendChild(bolt);
+                
+                setTimeout(() => {
+                    bolt.remove();
+                }, 3000);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
